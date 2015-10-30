@@ -19,48 +19,13 @@
     <canvas 
             id="canvas"
             style="border: 1px solid black;" 
-            height="600" 
+            height="500" 
             width="600">
     </canvas>
 
-    <script type="text/javascript">
-
-      // Gets a handle to the element with id canvas.
-      var canvas = document.getElementById("canvas");
-      // Set the canvas up for drawing in 2D.
-      var ctx = canvas.getContext("2d");
-      
-      //Helicopter object
-      var helicopter = 
-          {
-            width: 30,
-            height: 20
-          } 
-      
-      // Add an event listener to the keypress event.
-
-      });
-            function repeatme() 
-      {     
-          
-        // Draw the ball (stroked, not filled)         
-        ctx.beginPath();
-        ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
-        ctx.fill();
-        
-        if(window.addEventListener("keydown", function(event)  { 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        rect.y = rect.y -1;
-        
-        window.requestAnimationFrame(repeatme);
-      }
-      
+    <script type="script.js">
 
       
-      // Get the animation going.
-      repeatme();
-    
-
     </script>
 
   </body>
