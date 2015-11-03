@@ -44,7 +44,7 @@
             ascendRate: 1,
             descendRate: 1.5,
             climbRate: 0.5,
-            maxVelocity: 5,
+            maxVelocity: 2,
             gravity: 0.8
           }
       
@@ -73,7 +73,6 @@
 
         playerScore = 0;
         scrollVal = 0;
-        
         repeatme();
       }
 
@@ -85,21 +84,12 @@
         ctx.beginPath();
         ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
         
-        descentRate = physics.descendRate;
-        ascentRate = physics.ascendRate;
-        heliY += descentRate;  
+        heliY += physics.maxVelocity;
+        window.addEventListener("keypress", function(e) { 
 
-        window.addEventListener("keydown", function(e) { 
-
-        if (e.keyCode === 32) 
-        {
-            descentRate = 0;
-            
-            heliY -= ascendRate;
-            
+        if (e.keyCode === 32) {
+          physics.maxVelocity = -physics.maxVelocity;
         }
-
-                  
         });
 
         if( (heliY <= 0) || (heliY > (canvas.height-helicopter.height)) ) 
