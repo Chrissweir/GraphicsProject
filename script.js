@@ -19,8 +19,8 @@
       //Helicopter object
       var helicopter = 
           {
-            x: null,
-            y: null,
+            x: 100,
+            y: 150,
             width: 40,
             height: 30,
             acceleration: 0.10,
@@ -54,42 +54,49 @@
             colour: "rgb(211,211,211)",
             image: "background.png"
           }
+      descentRate = physics.descendRate;
+
+      // A function to repeat every time the animation loops.
+      function repeatme() 
+      {
+        ctx.clearRect(0, 0, canvas.height, canvas.width); 
+          
+        // Draw the ball (stroked, not filled).
+        ctx.beginPath();
+        ctx.fillRect(helicopter.x, helicopter.y, helicopter.width, helicopter.height, 10);
+        
+        
+        
+        ascentRate = physics.ascendRate;
+        
+        helicopter.y += descentRate;  
+
+      window.addEventListener("keydown", function(e) { 
+
+        if (e.keyCode === 32) {
+            descentRate = 0;
+            
+            helicopter.y -= ascendRate;
+            
+        }
+                  
+        });
+        
+       /* if(helicopter.y <= canvas.height - helicopter.height)
+        {
+         helicopter.y +=150; 
+        }*/
+
+          
+          
+        window.requestAnimationFrame(repeatme);
+      }
       
-        window.onload = function () { startGame(); }
+      // Get the animation going.
+      repeatme();
+
 
         
-        function startGame() 
-        {
-          game = "pause";
-          //clearScreen();
-
-          helicopter.image.src = "helicopter.png";
-
-          obstacleArray = new Array();
-
-          helicopter.x = 100;
-          helicopter.y = 175;
-
-          descentRate = physics.descendRate;
-          ascentRate = physics.ascendRate;
-
-          obstacleCount = 0;
-          playerScore = 0;
-
-          scrollVal = 0;
-
-          addObstacle();
-
-          ctx.drawImage(background.image, 0, 0, background.width, background.height);
-          ctx.drawImage(helicopter.image, helicopter.x, helicopter.y, helicopter.width, helicopter.height);
-    }
-
-        function addObstacle() {
-            newObstacle = {}
-            newObstacle.x = canvas.width;
-            newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
-            obstacleArray.push(newObstacle);
-        }
 
 
 
