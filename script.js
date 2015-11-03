@@ -5,6 +5,8 @@
       
       //Global variables
       var keyUp = 0;
+      var heliX;
+      var heliY;
       var game;
       var obstacleCount;
       var obstacleArray;
@@ -56,18 +58,36 @@
           }
 
 
-      // A function to repeat every time the animation loops.
+      // A function to repeat every time the animation loops
+
+      
+    function start()
+      {
+        obstacleArray = new Array();
+
+        heliX = helicopter.x;
+        heliY = helicopter.y;
+
+        descentRate = physics.descendRatecent;
+        ascentRate = physics.ascendRate;
+
+        playerScore = 0;
+        scrollVal = 0;
+        
+        repeatme();
+      }
+
       function repeatme() 
       {
         ctx.clearRect(0, 0, canvas.height, canvas.width); 
           
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
-        ctx.fillRect(helicopter.x, helicopter.y, helicopter.width, helicopter.height);
+        ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
         
         descentRate = physics.descendRate;
         ascentRate = physics.ascendRate;
-        helicopter.y += descentRate;  
+        heliY += descentRate;  
 
         window.addEventListener("keydown", function(e) { 
 
@@ -75,27 +95,30 @@
         {
             descentRate = 0;
             
-            helicopter.y -= ascendRate;
+            heliY -= ascendRate;
             
         }
-        descentRate = physics.descendRate;
-        ascentRate = physics.ascendRate;
+
                   
         });
-        
-        if(helicopter.y >= canvas.height - helicopter.height)
+
+        if( (heliY <= 0) || (heliY > (canvas.height-helicopter.height)) ) 
         {
-          helicopter.y = 150;
+          start();
         }
-
-
-          
-          
         window.requestAnimationFrame(repeatme);
       }
       
       // Get the animation going.
-      repeatme();
+      start();
+      
+     // function obstacle() 
+     /* {
+        newBrick = {}
+        newBrick.x = canvas.width;
+        newBrick.y = Math.floor(Math.random() * (canvas.height-brickHeight))
+        brickList.push(newBrick);
+      }*/
 
 
         
