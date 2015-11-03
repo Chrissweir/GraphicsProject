@@ -54,7 +54,7 @@
             colour: "rgb(211,211,211)",
             image: "background.png"
           }
-      descentRate = physics.descendRate;
+
 
       // A function to repeat every time the animation loops.
       function repeatme() 
@@ -63,29 +63,31 @@
           
         // Draw the ball (stroked, not filled).
         ctx.beginPath();
-        ctx.fillRect(helicopter.x, helicopter.y, helicopter.width, helicopter.height, 10);
+        ctx.fillRect(helicopter.x, helicopter.y, helicopter.width, helicopter.height);
         
-        
-        
+        descentRate = physics.descendRate;
         ascentRate = physics.ascendRate;
-        
         helicopter.y += descentRate;  
 
-      window.addEventListener("keydown", function(e) { 
+        window.addEventListener("keydown", function(e) { 
 
-        if (e.keyCode === 32) {
+        if (e.keyCode === 32) 
+        {
             descentRate = 0;
             
             helicopter.y -= ascendRate;
             
         }
+        descentRate = physics.descendRate;
+        ascentRate = physics.ascendRate;
                   
         });
         
-       /* if(helicopter.y <= canvas.height - helicopter.height)
+        if(helicopter.y >= canvas.height - helicopter.height)
         {
-         helicopter.y +=150; 
-        }*/
+          helicopter.y = 150;
+        }
+
 
           
           
