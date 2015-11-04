@@ -30,7 +30,7 @@ var obstacle = {
 height: 50,
 width: 30,
 colour: "rgb(0,0,255)",
-velocity: 2,
+velocity: 6,
 interval: 50
 }
 
@@ -52,7 +52,7 @@ image: "background.png"
 
 
 // A function to repeat every time the animation loops
-
+window.onload = function () { start(); }
 
 function start()
 {
@@ -65,9 +65,9 @@ velocity = physics.maxVelocity;
 
 playerScore = 0;
 scrollVal = 0;
-repeatme();
+//document.getElementById("myBtn").addEventListener("click", repeatme);
+  repeatme();
 }
-
 function repeatme() 
 {
 ctx.clearRect(0, 0, canvas.height, canvas.width); 
@@ -92,13 +92,6 @@ start();
 window.requestAnimationFrame(repeatme);
 }
 
-function obstacle() {
-newObstacle = {}
-newObstacle.x = canvas.width;
-newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
-obstacleArray.push(newObstacle);
-}
-
 function moveObstacles() {
   obstacleCount++;
   for(var i=0; i<obstacleArray.length; i++) {
@@ -120,20 +113,10 @@ function moveObstacles() {
     }
   }
 }
-  // Get the animation going.
-  start();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function obstacle() {
+newObstacle = {} 
+newObstacle.x = canvas.width;
+newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
+obstacleArray.push(newObstacle);
+}
