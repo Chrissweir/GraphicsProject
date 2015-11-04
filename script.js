@@ -25,7 +25,6 @@ height: 30,
 acceleration: 0.10,
 image: "helicopter.png"
 }
-
 //Obstacle object
 var obstacle = {
 height: 50,
@@ -39,7 +38,7 @@ var physics = {
 ascendRate: 1,
 descendRate: 1.5,
 climbRate: 0.5,
-maxVelocity: 2,
+maxVelocity: 3,
 gravity: 0.8
 }
 
@@ -107,12 +106,12 @@ function moveObstacles() {
       obstacleArray.splice(i, 1); // remove the brick that's outside the canvas
     } 
     else {
-      obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity;
-      ctx.fillStyle = obstacle.colour;
-      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height);
+      obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity
+      ctx.fillStyle = obstacle.colour
+      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height)
 
       // If enough distance (based on obstacleInterval) has elapsed since 
-      // the last brick was created, create another one
+      // the last obstacle was created, create another one
       if(obstacleCount >= obstacleInterval) {
         obstacle();
         obstacleCount = 0;
