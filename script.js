@@ -65,6 +65,8 @@ velocity = physics.maxVelocity;
 
 playerScore = 0;
 scrollVal = 0;
+  
+obstacle();
 //document.getElementById("myBtn").addEventListener("click", repeatme);
   repeatme();
 }
