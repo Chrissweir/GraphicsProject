@@ -15,6 +15,7 @@ var playerScore;
 var scrollVal;
 var ascentRate;
 var descentRate;
+var intervalId;
 
 //Helicopter object
 var helicopter = {
@@ -54,24 +55,38 @@ image: "background.png"
 // A function to repeat every time the animation loops
 window.onload = function () { start(); }
 
-function start()
-{
+function start(){
+game ="stop";
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 obstacleArray = new Array();
 
 heliX = helicopter.x;
 heliY = helicopter.y;
 
 velocity = physics.maxVelocity;
-
+obstacleCount = 0;
 playerScore = 0;
 scrollVal = 0;
   
-obstacle();
+addObstacle();
+ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
+
 //document.getElementById("myBtn").addEventListener("click", repeatme);
-  repeatme();
+//repeatme();
 }
-function repeatme() 
-{
+
+function play() {
+    if(game == "stop") {
+        intervalId = window.requestAnimationFrame(repeatme, canvas);
+        gameState = "play";
+    }
+}
+
+function stop() {
+    game = "stop";
+}
+
+function repeatme() {
 ctx.clearRect(0, 0, canvas.height, canvas.width); 
 
 // Draw the ball (stroked, not filled).
@@ -108,7 +123,7 @@ function moveObstacles() {
       // If enough distance (based on obstacleInterval) has elapsed since 
       // the last obstacle was created, create another one
       if(obstacleCount >= obstacleInterval) {
-        obstacle();
+        addObstacle();
         obstacleCount = 0;
         playerScore=playerScore+5;
       }
@@ -116,7 +131,7 @@ function moveObstacles() {
   }
 }
 
-function obstacle() {
+function addObstacle() {
 newObstacle = {} 
 newObstacle.x = canvas.width;
 newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
