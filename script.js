@@ -71,7 +71,7 @@ scrollVal = 0;
 addObstacle();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
-//document.getElementById("myBtn").addEventListener("click", repeatme);
+document.getElementById("myBtn").addEventListener("click", repeatme);
 //repeatme();
 }
 
