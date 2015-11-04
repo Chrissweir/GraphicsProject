@@ -71,42 +71,43 @@ scrollVal = 0;
 addObstacle();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
-document.getElementById("myBtn").addEventListener("click", repeatme);
+document.getElementById("myBtn").addEventListener("click", play);
 //repeatme();
 }
 
 function play() {
     if(game == "stop") {
-        intervalId = window.requestAnimationFrame(repeatme, canvas);
-        gameState = "play";
+      start();
+        intervalId = window.requestAnimationFrame(init, canvas);
+        game = "play";
     }
 }
 
 function stop() {
     game = "stop";
+    alert("YOU LOSE, GAME OVER!!", 240, 80);
+}
+
+function init(){
+  if(game == "play"){
+    ctx.clearRect(0, 0, canvas.height, canvas.width);
+    repeatme();
+    moveObstacles();
+    //checkCollision();
+    
+    window.requestAnimationFrame(init,canvas);
+  }
 }
 
 function repeatme() {
-ctx.clearRect(0, 0, canvas.height, canvas.width); 
-
-// Draw the ball (stroked, not filled).
 ctx.beginPath();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
-moveObstacles();
-
 heliY += velocity;
-window.addEventListener("keypress", function(e) { 
 
-if (e.keyCode === 32) {
-velocity = -velocity;
-}
-});
-
-if( (heliY <= 0) || (heliY > (canvas.height-helicopter.height)) ) {
-start();
-}
-window.requestAnimationFrame(repeatme);
+if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
+    stop();
+    }
 }
 
 function moveObstacles() {
@@ -137,3 +138,14 @@ newObstacle.x = canvas.width;
 newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
 obstacleArray.push(newObstacle);
 }
+
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 38:
+            velocity = -3;
+            break;
+        case 40:
+            velocity = 3;
+            break;
+    }
+};
