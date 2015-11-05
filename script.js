@@ -21,8 +21,8 @@ var intervalId;
 var helicopter = {
 x: 100,
 y: 135,
-width: 40,
-height: 30,
+width: 37,
+height: 27,
 acceleration: 0.10,
 image: "helicopter.png"
 }
@@ -50,7 +50,6 @@ velocity: 2,
 colour: "rgb(211,211,211)",
 image: "background.png"
 }
-
 
 // A function to repeat every time the animation loops
 window.onload = function () { start(); }
@@ -104,7 +103,7 @@ ctx.beginPath();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 heliY += velocity;
-playerScore=playerScore+1;
+score();
 document.getElementById("playerScore").value = playerScore;
 if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
     stop();
@@ -148,6 +147,14 @@ function collision() {
     }
 }
 
+function score(){
+  playerScore=playerScore+1;
+if(playerScore > 1500){
+ obstacleInterval = 45; 
+}else if(playerScore > 2500){
+ obstacleInterval = 40; 
+}
+}
 document.onkeydown = function(e) {
     switch (e.keyCode) {
         case 38:
