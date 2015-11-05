@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 
 //Global variables
 var keyUp = 0;
-var obstacleInterval = 40; // difficulty level 
+var obstacleInterval = 50; // difficulty level 
 var heliX;
 var heliY;
 var game;
@@ -20,7 +20,7 @@ var intervalId;
 //Helicopter object
 var helicopter = {
 x: 100,
-y: 150,
+y: 135,
 width: 40,
 height: 30,
 acceleration: 0.10,
@@ -28,7 +28,7 @@ image: "helicopter.png"
 }
 //Obstacle object
 var obstacle = {
-height: 50,
+height: 60,
 width: 30,
 colour: "rgb(0,0,255)",
 velocity: 6,
@@ -57,7 +57,7 @@ window.onload = function () { start(); }
 
 function start(){
 game ="stop";
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+ctx.clearRect(0, 0, 600, 500);
 obstacleArray = new Array();
 
 heliX = helicopter.x;
@@ -90,12 +90,12 @@ function stop() {
 
 function init(){
   if(game == "play"){
-    ctx.clearRect(0, 0, canvas.height, canvas.width);
+    ctx.clearRect(0, 0, 600, 500);
     repeatme();
     moveObstacles();
-    //checkCollision();
-    
+    collision();
     window.requestAnimationFrame(init,canvas);
+    
   }
 }
 
@@ -104,7 +104,8 @@ ctx.beginPath();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 heliY += velocity;
-
+playerScore=playerScore+1;
+document.getElementById("playerScore").value = playerScore;
 if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
     stop();
     }
@@ -118,15 +119,14 @@ function moveObstacles() {
     } 
     else {
       obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity
-      ctx.fillStyle = obstacle.colour
-      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height)
+      ctx.fillStyle = obstacle.colour;
+      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height);
 
       // If enough distance (based on obstacleInterval) has elapsed since 
       // the last obstacle was created, create another one
       if(obstacleCount >= obstacleInterval) {
         addObstacle();
         obstacleCount = 0;
-        playerScore=playerScore+5;
       }
     }
   }
@@ -137,6 +137,15 @@ newObstacle = {}
 newObstacle.x = canvas.width;
 newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
 obstacleArray.push(newObstacle);
+}
+
+function collision() {
+    for(var i=0; i<obstacleArray.length; i++) {
+        if (heliX < (obstacleArray[i].x + obstacle.width) && (heliX + helicopter.width) > obstacleArray[i].x
+                    && heliY < (obstacleArray[i].y + obstacle.height) && (heliY + helicopter.height) > obstacleArray[i].y ) {
+            stop();
+        }
+    }
 }
 
 document.onkeydown = function(e) {
