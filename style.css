@@ -1,12 +1,15 @@
 #layout {
-    margin: 5px auto 0px auto;
+    margin: 3px auto 0px auto;
     width: 500px;
     height: 350px;
-    padding: 8px;
-    border-radius: 5px;
-    box-shadow: 2px 3px 10px rgba(0,0,0,0.80);
-    background: url("background.png");
-    background-size: contain;
+    padding: 5px;
+    border-radius: 7px;
+    box-shadow: 2px 3px 10px rgba(192,192,192,0.30);
 }
 
-
+#canvas{
+    background: url("background.png");
+    background-size: 500px 350px;
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
