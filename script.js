@@ -51,8 +51,8 @@ game ="stop";
 ctx.clearRect(0, 0, 600, 500);
 obstacleArray = new Array();
   
-background = new Image();
-background.src = "background.png";
+var heliImage = new Image();
+heliImage.src = "helicopter.png";
 
 heliX = helicopter.x;
 heliY = helicopter.y;
@@ -65,7 +65,7 @@ obstacleInterval = 50;
   
 addObstacle();
 //ctx.drawImage(background, 0, 0, canvas.width, canvas.height):
-ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
+ctx.drawImage(heliImage, heliX, heliY, helicopter.width, helicopter.height);
 
 document.getElementById("myBtn").addEventListener("click", play);
 //repeatme();
