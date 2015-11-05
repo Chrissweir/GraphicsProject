@@ -4,18 +4,15 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 //Global variables
-var keyUp = 0;
-var obstacleInterval = 50; // difficulty level 
-var heliX;
-var heliY;
+var obstacleInterval = 50; // Difficulty level, space between Obstacles
+var heliX; // Takes in Helicopter X Coordinate
+var heliY; // Takes in Helicopter X Coordinate
 var game;
 var obstacleCount;
 var obstacleArray;
 var playerScore;
-var background;
-var ascentRate;
-var descentRate;
 var intervalId;
+var maxVelocity = 3;
 
 //Helicopter object
 var helicopter = {
@@ -23,49 +20,38 @@ x: 100,
 y: 135,
 width: 37,
 height: 27,
-acceleration: 0.10,
-image: "helicopter.png"
+colour: "rgb(0,0,0)"
 }
 //Obstacle object
 var obstacle = {
 height: 60,
 width: 30,
-colour: "rgb(0,0,255)",
+colour: "rgb(96,0,0)",
 velocity: 6,
 interval: 50
 }
 
-var physics = {
-ascendRate: 1,
-descendRate: 1.5,
-climbRate: 0.5,
-maxVelocity: 3,
-gravity: 0.8
-}
-
 // A function to repeat every time the animation loops
-window.onload = function () { start(); }
+start();
 
 function start(){
+
 game ="stop";
 ctx.clearRect(0, 0, 600, 500);
 obstacleArray = new Array();
-  
-var heliImage = new Image();
-heliImage.src = "helicopter.png";
 
 heliX = helicopter.x;
 heliY = helicopter.y;
 
-velocity = physics.maxVelocity;
+velocity = maxVelocity;
 obstacleCount = 0;
 playerScore = 0;
 obstacleInterval = 50;
 
   
 addObstacle();
-//ctx.drawImage(background, 0, 0, canvas.width, canvas.height):
-ctx.drawImage(heliImage, heliX, heliY, helicopter.width, helicopter.height);
+ctx.fillStyle = helicopter.colour;
+ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 document.getElementById("myBtn").addEventListener("click", play);
 //repeatme();
@@ -97,6 +83,8 @@ function init(){
 
 function repeatme() {
 ctx.beginPath();
+  ctx.fillStyle = helicopter.colour;
+
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 heliY += velocity;
