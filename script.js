@@ -65,7 +65,7 @@ heliY = helicopter.y;
 velocity = physics.maxVelocity;
 obstacleCount = 0;
 playerScore = 0;
-scrollVal = 0;
+obstacleInterval = 50;
   
 addObstacle();
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
@@ -150,9 +150,9 @@ function collision() {
 function score(){
   playerScore=playerScore+1;
 if(playerScore > 1500){
- obstacleInterval = 45; 
-}else if(playerScore > 2500){
  obstacleInterval = 40; 
+}else if(playerScore > 2500){
+ obstacleInterval = 30; 
 }
 }
 document.onkeydown = function(e) {
