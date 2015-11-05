@@ -12,7 +12,7 @@ var game;
 var obstacleCount;
 var obstacleArray;
 var playerScore;
-var scrollVal;
+var background;
 var ascentRate;
 var descentRate;
 var intervalId;
@@ -43,14 +43,6 @@ maxVelocity: 3,
 gravity: 0.8
 }
 
-var background ={
-width: 600,
-height: 350,
-velocity: 2,
-colour: "rgb(211,211,211)",
-image: "background.png"
-}
-
 // A function to repeat every time the animation loops
 window.onload = function () { start(); }
 
@@ -58,6 +50,9 @@ function start(){
 game ="stop";
 ctx.clearRect(0, 0, 600, 500);
 obstacleArray = new Array();
+  
+background = new Image();
+background.src = "background.png";
 
 heliX = helicopter.x;
 heliY = helicopter.y;
@@ -66,8 +61,10 @@ velocity = physics.maxVelocity;
 obstacleCount = 0;
 playerScore = 0;
 obstacleInterval = 50;
+
   
 addObstacle();
+//ctx.drawImage(background, 0, 0, canvas.width, canvas.height):
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 document.getElementById("myBtn").addEventListener("click", play);
@@ -150,9 +147,9 @@ function collision() {
 function score(){
   playerScore=playerScore+1;
 if(playerScore > 1500){
- obstacleInterval = 40; 
+ obstacleInterval = 35; 
 }else if(playerScore > 2500){
- obstacleInterval = 30; 
+ obstacleInterval = 25; 
 }
 }
 document.onkeydown = function(e) {

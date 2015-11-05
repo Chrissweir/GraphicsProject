@@ -4,10 +4,9 @@
     height: 350px;
     padding: 8px;
     border-radius: 5px;
-    box-shadow: 2px 3px 10px rgba(0.0.0.);
+    box-shadow: 2px 3px 10px rgba(0,0,0,0.80);
+    background: url("background.png");
+    background-size: contain;
 }
 
-#body {
-  background-image: "background.png";
-}
 
