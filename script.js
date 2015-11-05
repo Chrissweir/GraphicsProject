@@ -5,34 +5,32 @@ var ctx = canvas.getContext("2d");
 
 //Global variables
 var obstacleInterval = 50; // Difficulty level, space between Obstacles
-var heliX; // Takes in Helicopter X Coordinate
-var heliY; // Takes in Helicopter X Coordinate
-var game;
-var obstacleCount;
-var obstacleArray;
-var playerScore;
-var intervalId;
-var maxVelocity = 3;
+var maxVelocity = 3; // var velocity takes in this Constant Value
+
+var heliX; // Takes in takes in constant Helicopter X Coordinate
+var heliY; // Takes in takes in constant Helicopter Y Coordinate
+var game; // Sets the state of game (Play or Stop)
+var obstacleCount; // Count for the Obstacles
+var obstacleArray; // Array of Obstacles
+var playerScore; // Record the player score
 
 //Helicopter object
 var helicopter = {
-x: 100,
-y: 135,
-width: 37,
-height: 27,
-colour: "rgb(0,0,0)"
-}
+  x: 100, // Helicopter X Coordinate
+  y: 135, // Helicopter Y Coordinate
+  width: 37, // Helicopter Width
+  height: 27, // Helicopter Height
+  colour: "rgb(0,0,0)" // Helicopter Colour
+};
 //Obstacle object
 var obstacle = {
-height: 60,
-width: 30,
-colour: "rgb(96,0,0)",
-velocity: 6,
-interval: 50
-}
+  height: 60,
+  width: 30,
+  colour: "rgb(96,0,0)",
+  velocity: 6
+};
 
 // A function to repeat every time the animation loops
-start();
 
 function start(){
 
@@ -56,12 +54,13 @@ ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 document.getElementById("myBtn").addEventListener("click", play);
 //repeatme();
 }
+start();
 
 function play() {
     if(game == "stop") {
       start();
-        intervalId = window.requestAnimationFrame(init, canvas);
-        game = "play";
+      window.requestAnimationFrame(init, canvas);
+      game = "play";
     }
 }
 
