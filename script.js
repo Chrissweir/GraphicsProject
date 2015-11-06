@@ -20,7 +20,7 @@ var helicopter = {
   y: 135, // Helicopter Y Coordinate
   width: 37, // Helicopter Width
   height: 27, // Helicopter Height
-  colour: "rgb(0,0,0)" // Helicopter Colour
+  colour: "rgb(0,0,0)" // Helicopter Colour (black)
 };
 
 //Obstacle object
@@ -48,36 +48,37 @@ obstacleInterval = 50; // obstacleInterval is set to 50
   
 addObstacle(); // Calls the addObstacle method
 ctx.fillStyle = helicopter.colour; // Makes the helicopter colour black
-ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
+ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height); //Creates the Helicopter on the canvas
+document.getElementById("myBtn").addEventListener("click", play); // Adds an event listener to the html button with id = "myBtn" that then calls the play() funtion
+}// End of start() function
 
-document.getElementById("myBtn").addEventListener("click", play);
-//repeatme();
-}
-start();
+start(); // Call the start() function to start everything off
 
+//The play() function changes the game from stop to play, calls the start function to reset everything, and calls the init function and the canvas to refresh
 function play() {
-    if(game == "stop") {
-      start();
-      window.requestAnimationFrame(init, canvas);
-      game = "play";
-    }
-}
+    if(game == "stop") { //Chacks if the game is set to "stop"
+      start(); // Calls the start() function to reset all variables
+      window.requestAnimationFrame(init, canvas); // Requests the init() function to start and refreshes the canvas
+      game = "play"; // Sets the game to "play"
+    }// End of if statment
+}// End of play() function
 
+// The stop() function changes the game to "stop" and triggers a Javascript alert letting the player know the game is over
 function stop() {
-    game = "stop";
-    alert("YOU LOSE, GAME OVER!!", 240, 80);
-}
+    game = "stop"; // Changes the game to "stop"
+    alert("YOU LOSE, GAME OVER!! \nPress Start to try again!", 100, 50); // Generates a Javascript alert to to tell the player the game is over
+}// End of stop() function
 
+// The init() function calls all the methods to initialise the game 
 function init(){
-  if(game == "play"){
-    ctx.clearRect(0, 0, 600, 500);
-    repeatme();
-    moveObstacles();
-    collision();
-    window.requestAnimationFrame(init,canvas);
-    
-  }
-}
+  if(game == "play"){ // Checks if the game is set to "play"
+    ctx.clearRect(0, 0, 600, 500); // Clears the canvas
+    repeatme(); // Calls the repeatme() function
+    moveObstacles(); // Calls the moveObstacles() function
+    collision(); // Calls the collision function
+    window.requestAnimationFrame(init,canvas);// Requests the init() function and refreshes the canvas
+  }// End of if statment
+}// End of init() function
 
 function repeatme() {
 ctx.beginPath();
