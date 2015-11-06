@@ -121,15 +121,15 @@ function addObstacle() {
   obstacleArray.push(newObstacle); // Push the newObstacle to the obstacleArray
 } // End of addObstacle() function
 
-//
+// The collision() function chacks if the helicopter collides with the obstacles
 function collision() {
-    for(var i=0; i<obstacleArray.length; i++) {
+    for(var i=0; i<obstacleArray.length; i++) { // For loop to check if i is less than the length of the obstacleArray, adds 1 to i
         if (heliX < (obstacleArray[i].x + obstacle.width) && (heliX + helicopter.width) > obstacleArray[i].x
-                    && heliY < (obstacleArray[i].y + obstacle.height) && (heliY + helicopter.height) > obstacleArray[i].y ) {
-            stop();
-        }
-    }
-}
+            && heliY < (obstacleArray[i].y + obstacle.height) && (heliY + helicopter.height) > obstacleArray[i].y ) { // Checks if the helicopter hits any of the obstacles
+            stop(); // Calls the stop() function if the helicopter collides the the obstacles
+        } // End of if statement
+    } // End of for loop
+} // End of collision() function
 
 function score(){
   playerScore=playerScore+1;
