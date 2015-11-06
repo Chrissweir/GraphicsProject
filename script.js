@@ -71,7 +71,7 @@ function stop() {
 
 // The init() function calls all the methods to initialise the game 
 function init(){
-  if(game == "play"){ // Checks if the game is set to "play"
+  if(game == "play") { // Checks if the game is set to "play"
     ctx.clearRect(0, 0, 600, 500); // Clears the canvas
     repeatme(); // Calls the repeatme() function
     moveObstacles(); // Calls the moveObstacles() function
@@ -121,7 +121,7 @@ function addObstacle() {
   obstacleArray.push(newObstacle); // Push the newObstacle to the obstacleArray
 } // End of addObstacle() function
 
-// The collision() function chacks if the helicopter collides with the obstacles
+// The collision() function checks if the helicopter collides with the obstacles
 function collision() {
     for(var i=0; i<obstacleArray.length; i++) { // For loop to check if i is less than the length of the obstacleArray, adds 1 to i
         if (heliX < (obstacleArray[i].x + obstacle.width) && (heliX + helicopter.width) > obstacleArray[i].x
@@ -131,23 +131,25 @@ function collision() {
     } // End of for loop
 } // End of collision() function
 
+// The score() function calculates the players score and adds to the difficulty if the score reaches a certain level
 function score(){
-  playerScore=playerScore+1;
-if(playerScore > 1500){
- obstacleInterval = 35; 
-}else if(playerScore > 2500){
- obstacleInterval = 25; 
-}
-}
+  playerScore=playerScore+1; // Adds 1 to the playerScore
+  if(playerScore > 1500){ // Checks if the playerscore is less than 1500
+    obstacleInterval = 35; // If the score is greater than 1500, the difficulty increases by lowering the obstacle Interval value
+  } // End of if statement
+  else if(playerScore > 2500){ // Checks if the playerscore is less than 2500
+    obstacleInterval = 25; // If the score is greater than 2500, the difficulty increases by lowering the obstacle Interval value
+  } // End of else if statement
+} // End of score() function
 
-
-document.onkeydown = function(e) {
-    switch (e.keyCode) {
-        case 38:
-            velocity = -3;
+// onkeydown function to check if either the up key or the down key is being pressed, if so then change the velocity accordingly
+document.onkeydown = function(e) { // onkeydown function
+    switch (e.keyCode) { // switch statement that checks what keycode is being pressed
+        case 38: // If keycode is 38 (up key) change velocity
+            velocity = -3; // Velocity set to -3
             break;
-        case 40:
-            velocity = 3;
+        case 40: // If keycode is 40 (up key) change velocity
+            velocity = 3; // Velocity set to 3
             break;
-    }
-};
+    } //End of switch statement
+}; // End of onkeydown function
