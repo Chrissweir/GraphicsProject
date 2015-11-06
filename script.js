@@ -60,7 +60,7 @@ function play() {
       start(); // Calls the start() function to reset all variables
       window.requestAnimationFrame(init, canvas); // Requests the init() function to start and refreshes the canvas
       game = "play"; // Sets the game to "play"
-    }// End of if statment
+    }// End of if statement
 }// End of play() function
 
 // The stop() function changes the game to "stop" and triggers a Javascript alert letting the player know the game is over
@@ -77,32 +77,31 @@ function init(){
     moveObstacles(); // Calls the moveObstacles() function
     collision(); // Calls the collision function
     window.requestAnimationFrame(init,canvas);// Requests the init() function and refreshes the canvas
-  }// End of if statment
+  }// End of if statement
 }// End of init() function
 
-function repeatme() {
-ctx.beginPath();
-  ctx.fillStyle = helicopter.colour;
+// The repeatme() function draws the helicopter on the canvas, adds velocity to the heliY coordinate, calls the score function to get the playerScore value and adds it to the score label on the html. Also calls the collision() function to check for any collisions
+function repeatme() { 
+  ctx.beginPath();// Begins the path
+  ctx.fillStyle = helicopter.colour; // Makes the helicopter black
+  ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);// Draw the helicopter on the canvas
 
-ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
+  heliY += velocity; // Increase the heliY value by the velocity value
+  score(); // Call the score function
+  document.getElementById("playerScore").value = playerScore; // Output the playerScore to the html label
+  collision(); // Call the collision() function to check for collisions
+} // End of repeatme() function
 
-heliY += velocity;
-score();
-document.getElementById("playerScore").value = playerScore;
-if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
-    stop();
-    }
-}
-
+// The moveObstacle() function populates the obstacleArray, removes obstacle if its off the canvas, adds velocity to the obstacle and then draws it on the canvas. Based on the obstacleInterval value, if enough distance has elasped from the last generated obstacle, then another obstacle is created
 function moveObstacles() {
-  obstacleCount++;
-  for(var i=0; i<obstacleArray.length; i++) {
-    if(obstacleArray[i].x < 0-obstacle.width) {
-      obstacleArray.splice(i, 1); // remove the brick that's outside the canvas
-    } 
-    else {
-      obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity
-      ctx.fillStyle = obstacle.colour;
+  obstacleCount++; // Adds 1 to the obstacleCount
+  for(var i=0; i<obstacleArray.length; i++) { // For loop to check if i is less than the lenght of the obstacleArray, adds 1 to i
+    if(obstacleArray[i].x < 0-obstacle.width) { // Chacks if the obstacle is outside the canvas
+      obstacleArray.splice(i, 1); // Remove the obstacle if it is outside the canvas
+    } // End of if statement
+    else { // Else if the obstacle is not outside the canvas, add (-)obstacle.velocity to the next obstacle
+      obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity; // add (-)obstacle.velocity to the next obstacle
+      ctx.fillStyle = obstacle.colour; // Make the obstacle colour = obstacle.colour (dark red)
       ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height);
 
       // If enough distance (based on obstacleInterval) has elapsed since 
@@ -123,6 +122,10 @@ obstacleArray.push(newObstacle);
 }
 
 function collision() {
+  
+  if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
+    stop();
+    }
     for(var i=0; i<obstacleArray.length; i++) {
         if (heliX < (obstacleArray[i].x + obstacle.width) && (heliX + helicopter.width) > obstacleArray[i].x
                     && heliY < (obstacleArray[i].y + obstacle.height) && (heliY + helicopter.height) > obstacleArray[i].y ) {
