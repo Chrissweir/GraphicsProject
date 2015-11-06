@@ -80,7 +80,7 @@ function init(){
   }// End of if statement
 }// End of init() function
 
-// The repeatme() function draws the helicopter on the canvas, adds velocity to the heliY coordinate, calls the score function to get the playerScore value and adds it to the score label on the html. Also calls the collision() function to check for any collisions
+// The repeatme() function draws the helicopter on the canvas, adds velocity to the heliY coordinate, calls the score function to get the playerScore value and adds it to the score label on the html. Also checks for any collisions
 function repeatme() { 
   ctx.beginPath();// Begins the path
   ctx.fillStyle = helicopter.colour; // Makes the helicopter black
@@ -89,7 +89,9 @@ function repeatme() {
   heliY += velocity; // Increase the heliY value by the velocity value
   score(); // Call the score function
   document.getElementById("playerScore").value = playerScore; // Output the playerScore to the html label
-  collision(); // Call the collision() function to check for collisions
+  if((heliY <= 0) || (heliY > (canvas.height-helicopter.height))) { // Checks to see if the helicopter has collided with the canvas walls
+    stop();
+  }
 } // End of repeatme() function
 
 // The moveObstacle() function populates the obstacleArray, removes obstacle if its off the canvas, adds velocity to the obstacle and then draws it on the canvas. Based on the obstacleInterval value, if enough distance has elasped from the last generated obstacle, then another obstacle is created
@@ -102,30 +104,25 @@ function moveObstacles() {
     else { // Else if the obstacle is not outside the canvas, add (-)obstacle.velocity to the next obstacle
       obstacleArray[i].x = obstacleArray[i].x - obstacle.velocity; // add (-)obstacle.velocity to the next obstacle
       ctx.fillStyle = obstacle.colour; // Make the obstacle colour = obstacle.colour (dark red)
-      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height);
+      ctx.fillRect(obstacleArray[i].x, obstacleArray[i].y, obstacle.width, obstacle.height); // Draw the next obstacle on the canvas
+      if(obstacleCount >= obstacleInterval) { // Checks if the obstacleCount is greater or equal to the obstacleInterval
+        addObstacle(); // Calls the addObstacle() function to create a new obstacle if obstacleCount has reached obstacleInterval
+        obstacleCount = 0; // Resets the obstacleCount back to 0
+      } // End of if statement
+    } //End of else statement
+  } // End of for loop
+} //End of moveObstacle() function
 
-      // If enough distance (based on obstacleInterval) has elapsed since 
-      // the last obstacle was created, create another one
-      if(obstacleCount >= obstacleInterval) {
-        addObstacle();
-        obstacleCount = 0;
-      }
-    }
-  }
-}
-
+// The function addObstacles() generate a new obstacle object, gives it an X and Y coordinate and pushes it to the obstacleArray
 function addObstacle() {
-newObstacle = {} 
-newObstacle.x = canvas.width;
-newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height))
-obstacleArray.push(newObstacle);
-}
+  newObstacle = {} // Create the newObstacle object
+  newObstacle.x = canvas.width; // Sets the obstacle X coordinate to the canvas width coordinate
+  newObstacle.y = Math.floor(Math.random() * (canvas.height-obstacle.height)) // Sets the Y coordinate to a random value within the canvas 
+  obstacleArray.push(newObstacle); // Push the newObstacle to the obstacleArray
+} // End of addObstacle() function
 
+//
 function collision() {
-  
-  if((heliY <= 0) || (heliY > (canvas.height-helicopter.height)))      {
-    stop();
-    }
     for(var i=0; i<obstacleArray.length; i++) {
         if (heliX < (obstacleArray[i].x + obstacle.width) && (heliX + helicopter.width) > obstacleArray[i].x
                     && heliY < (obstacleArray[i].y + obstacle.height) && (heliY + helicopter.height) > obstacleArray[i].y ) {
@@ -142,6 +139,8 @@ if(playerScore > 1500){
  obstacleInterval = 25; 
 }
 }
+
+
 document.onkeydown = function(e) {
     switch (e.keyCode) {
         case 38:
