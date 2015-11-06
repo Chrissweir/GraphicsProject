@@ -22,33 +22,32 @@ var helicopter = {
   height: 27, // Helicopter Height
   colour: "rgb(0,0,0)" // Helicopter Colour
 };
+
 //Obstacle object
 var obstacle = {
-  height: 60,
-  width: 30,
-  colour: "rgb(96,0,0)",
-  velocity: 6
+  height: 60, // Obstacle Height
+  width: 30, //Obstacle Width
+  colour: "rgb(96,0,0)", // Obstacle Colour
+  velocity: 6 // Obstacle velocity (Speed)
 };
 
-// A function to repeat every time the animation loops
+// Start function is the first function to be called. It initially sets all the necessary variables to their required state. Then when the user clicks the "Start" button the play() function is called.
+function start() {
 
-function start(){
+game = "stop"; // Sets the game value to "stop"
+ctx.clearRect(0, 0, 600, 500); // Clear the canvas
+obstacleArray = new Array(); // Sets the obstaclArray as a new array
 
-game ="stop";
-ctx.clearRect(0, 0, 600, 500);
-obstacleArray = new Array();
+heliX = helicopter.x; // heliX takes in the Constant helicopter.x value
+heliY = helicopter.y; // heliX takes in the Constant helicopter.y value
 
-heliX = helicopter.x;
-heliY = helicopter.y;
-
-velocity = maxVelocity;
-obstacleCount = 0;
-playerScore = 0;
-obstacleInterval = 50;
-
+velocity = maxVelocity; // velocity takes in Constant maxVelocity value
+obstacleCount = 0; // obstacleCount is set back to 0
+playerScore = 0; // playerScore is set back to 0
+obstacleInterval = 50; // obstacleInterval is set to 50
   
-addObstacle();
-ctx.fillStyle = helicopter.colour;
+addObstacle(); // Calls the addObstacle method
+ctx.fillStyle = helicopter.colour; // Makes the helicopter colour black
 ctx.fillRect(heliX, heliY, helicopter.width, helicopter.height);
 
 document.getElementById("myBtn").addEventListener("click", play);
